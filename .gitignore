@@ -1,4 +1,4 @@
 node_modules
 session-store.db
-db/allUsers.sql
+# db/allUsers.sql
 .env

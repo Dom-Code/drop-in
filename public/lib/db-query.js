@@ -10,8 +10,8 @@ const config = require('./config');
 const isProduction = (config.NODE_ENV === 'production');
 const CONNECTION = {
   connectionString: config.DATABASE_URL,
-  ssl: isProduction, // See note below
-  // ssl: { rejectUnauthorized: false },
+  // ssl: isProduction, // See note below
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 };
 
 module.exports = {
