@@ -13,9 +13,8 @@ class Controller {
     if (signinRequest) {
       const providersData = signinRequest[1];
       this.view.signedIn = true;
-      this.view.userName = signinRequest[0].first_name;
       this.view.closeSignIn();
-      this.view.checkSignedIn();
+      this.view.checkSignedIn(signinRequest[0].first_name);
       this.getProviders(providersData);
       this.view.providers = providersData;
     } else {
@@ -40,7 +39,6 @@ class Controller {
     let providers;
     if (!prov) {
       const result = await this.model.getProviders();
-      console.log(result);
       if (Array.isArray(result)) {
         providers = result;
       } else {

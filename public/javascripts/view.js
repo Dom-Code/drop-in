@@ -49,12 +49,12 @@ class View {
     this.getProviders();
   }
 
-  checkSignedIn() {
+  checkSignedIn(name) {
     if (this.signedIn) {
       this.signOutDiv.classList.add('hidden');
       this.signInDiv.classList.remove('hidden');
       this.userGreeting = document.querySelector('#user-greeting');
-      this.userGreeting.textContent = `Hello ${this.userName}`;
+      this.userGreeting.textContent = `Hello ${name}`;
       this.enableLogout();
     } else if (!this.signedIn) {
       if (this.signOutDiv.classList.contains('hidden')) {
