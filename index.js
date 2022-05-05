@@ -12,7 +12,7 @@ const PgPersistence = require('./public/lib/pg-persistence');
 const catchError = require('./public/lib/catch-error');
 
 const host = config.HOST;
-const port_number = server.listen(process.env.PORT || 3000);
+const port_number = process.env.PORT || 3000;
 const saltRounds = 10;
 
 const app = express();
