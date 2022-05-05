@@ -80,7 +80,6 @@ app.post(
       if (bcrypt.compareSync(password, String(hash))) {
         const results = await res.locals.store.signIn(email);
         const firstName = results.first_name;
-        console.log(firstName);
         req.session.username = firstName;
         req.session.signedIn = true;
         res.json([results, await res.locals.store.getFullProviders()]);

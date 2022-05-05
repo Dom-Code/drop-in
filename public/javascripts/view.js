@@ -53,6 +53,8 @@ class View {
     if (this.signedIn) {
       this.signOutDiv.classList.add('hidden');
       this.signInDiv.classList.remove('hidden');
+      this.userGreeting = document.querySelector('#user-greeting');
+      this.userGreeting.textContent = `Hello ${this.userName}`;
       this.enableLogout();
     } else if (!this.signedIn) {
       if (this.signOutDiv.classList.contains('hidden')) {
@@ -176,7 +178,6 @@ class View {
   enableSubmitButton() {
     this.signinForm = document.querySelector('#signin-form');
     this.signinForm.addEventListener('submit', (event) => {
-      console.log('heloo');
       event.preventDefault();
       const keysValues = [];
 
