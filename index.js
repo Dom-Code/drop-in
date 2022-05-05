@@ -12,7 +12,7 @@ const PgPersistence = require('./public/lib/pg-persistence');
 const catchError = require('./public/lib/catch-error');
 
 const host = config.HOST;
-const port_number = process.env.PORT || 3000;
+const port = config.PORT || 3000;
 const saltRounds = 10;
 
 const app = express();
@@ -42,8 +42,8 @@ app.use(morgan('common'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(port_number, 'localhost', () => {
-  console.log('listening on port 3000');
+app.listen(port, host, () => {
+  console.log(`listening on port ${port}`);
 });
 
 app.get('/', (req, res) => {
