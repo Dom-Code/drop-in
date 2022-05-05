@@ -54,7 +54,8 @@ app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/signup.html'));
 });
 
-app.post('/signup', async (req, res, next) => {
+app.post('/signup', 
+  catchError(async (req, res, next) => {
   const { firstName } = req.body;
   const { lastName } = req.body;
   const { email } = req.body;
@@ -63,9 +64,10 @@ app.post('/signup', async (req, res, next) => {
   const hash = bcrypt.hashSync(pw, saltRounds);
   const results = await res.locals.store.addUser(firstName, lastName, email, hash);
   res.json(results);
-});
+}));
 
-app.post('/signin', async (req, res) => {
+app.post('/signin', 
+  catchError(async (req, res) => {
   const email = req.body.email.trim();
   const password = String(req.body.pw);
 
@@ -83,16 +85,18 @@ app.post('/signin', async (req, res) => {
       res.json(null);
     }
   }
-});
+}));
 
-app.post('/signout', async (req, res) => {
+app.post('/signout', 
+  catchError(async (req, res) => {
   req.session.username = null;
   req.session.signedIn = false;
   res.json(true);
-});
+}));
 
-app.get('/providers', async (req, res) => {
+app.get('/providers', 
+  catchError(async (req, res) => {
   const providers = await res.locals.store.getPartialProviders();
   res.json(providers);
   // res.json(await res.locals.store.getPartialProviders());
-});
+}));
