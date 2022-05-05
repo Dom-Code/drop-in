@@ -18,7 +18,7 @@ class View {
     this.signinModalLayer = document.querySelector('#signin-modal-layer');
     this.signedIn = false;
     this.contactingProvider = false;
-    this.userName = '';
+    this.userName = null;
     this.signOutDiv = document.querySelector('#signed-out');
     this.signInDiv = document.querySelector('#signed-in');
     this.providerUl = document.querySelector('#provider-list');
