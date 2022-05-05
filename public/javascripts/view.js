@@ -360,6 +360,7 @@ class View {
   // will then pass list of providers to buildProvidersTemplate function.
 
   buildProvidersTemplate(providers) {
+    console.log(providers);
     const providerList = Handlebars.compile(document.querySelector('#provider-list-template').innerHTML);
     const partialTemplate = document.querySelector('#partialTemplate').innerHTML;
     const partialCompiled = Handlebars.compile(partialTemplate);

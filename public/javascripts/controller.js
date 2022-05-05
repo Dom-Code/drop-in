@@ -40,6 +40,7 @@ class Controller {
     let providers;
     if (!prov) {
       const result = await this.model.getProviders();
+      console.log(result);
       if (Array.isArray(result)) {
         providers = result;
       } else {

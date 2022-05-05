@@ -20,8 +20,7 @@ class Model {
         }
       });
       request.send(data);
-    }).then((result) => result)
-      .catch((error) => error);
+    });
   }
 
   signin(data) {
@@ -41,8 +40,7 @@ class Model {
         }
       });
       request.send(data);
-    }).then((result) => result)
-      .catch((error) => error);
+    });
   }
 
   signout() {
@@ -61,8 +59,7 @@ class Model {
         }
       });
       request.send();
-    }).then((result) => result)
-      .catch((error) => error);
+    });
   }
 
   getProviders() {
@@ -73,14 +70,15 @@ class Model {
       request.addEventListener('load', () => {
         const data = request.response;
         if (data && (request.status >= 200 && request.status < 400)) {
-          resolve(data);
+          if (data.rowCount > 0) {
+            resolve(data.rows);
+          }
         } else {
           resolve([]);
         }
       });
       request.send();
-    }).then((result) => result)
-      .catch((error) => error);
+    });
   }
 
   // getFull() {
