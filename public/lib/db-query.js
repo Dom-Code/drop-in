@@ -18,13 +18,9 @@ module.exports = {
   async dbQuery(statement, ...parameters) {
     // const client = new Client({ database: 'seen' });
     const client = new Client(CONNECTION);
-    try {
-      await client.connect();
-      const result = await client.query(statement, parameters);
-      await client.end();
-      return result;
-    } catch (err) {
-      return err.detail;
-    }
+    await client.connect();
+    const result = await client.query(statement, parameters);
+    await client.end();
+    return result;
   },
 };
