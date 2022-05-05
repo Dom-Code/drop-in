@@ -12,7 +12,7 @@ const PgPersistence = require('./public/lib/pg-persistence');
 const catchError = require('./public/lib/catch-error');
 
 const host = config.HOST;
-const port = config.PORT;
+const port_number = server.listen(process.env.PORT || 3000);
 const saltRounds = 10;
 
 const app = express();
@@ -42,7 +42,7 @@ app.use(morgan('common'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(3000, 'localhost', () => {
+app.listen(port_number, 'localhost', () => {
   console.log('listening on port 3000');
 });
 
@@ -54,49 +54,57 @@ app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/signup.html'));
 });
 
-app.post('/signup', 
+app.post(
+  '/signup',
   catchError(async (req, res, next) => {
-  const { firstName } = req.body;
-  const { lastName } = req.body;
-  const { email } = req.body;
-  const { pw } = req.body;
+    const { firstName } = req.body;
+    const { lastName } = req.body;
+    const { email } = req.body;
+    const { pw } = req.body;
 
-  const hash = bcrypt.hashSync(pw, saltRounds);
-  const results = await res.locals.store.addUser(firstName, lastName, email, hash);
-  res.json(results);
-}));
+    const hash = bcrypt.hashSync(pw, saltRounds);
+    const results = await res.locals.store.addUser(firstName, lastName, email, hash);
+    res.json(results);
+  }),
+);
 
-app.post('/signin', 
+app.post(
+  '/signin',
   catchError(async (req, res) => {
-  const email = req.body.email.trim();
-  const password = String(req.body.pw);
+    const email = req.body.email.trim();
+    const password = String(req.body.pw);
 
-  const hash = await res.locals.store.getHashedPw(email);
+    const hash = await res.locals.store.getHashedPw(email);
 
-  if (hash) {
-    if (bcrypt.compareSync(password, String(hash))) {
-      const results = await res.locals.store.signIn(email);
-      const firstName = results.first_name;
-      console.log(firstName);
-      req.session.username = firstName;
-      req.session.signedIn = true;
-      res.json([results, await res.locals.store.getFullProviders()]);
-    } else {
-      res.json(null);
+    if (hash) {
+      if (bcrypt.compareSync(password, String(hash))) {
+        const results = await res.locals.store.signIn(email);
+        const firstName = results.first_name;
+        console.log(firstName);
+        req.session.username = firstName;
+        req.session.signedIn = true;
+        res.json([results, await res.locals.store.getFullProviders()]);
+      } else {
+        res.json(null);
+      }
     }
-  }
-}));
+  }),
+);
 
-app.post('/signout', 
+app.post(
+  '/signout',
   catchError(async (req, res) => {
-  req.session.username = null;
-  req.session.signedIn = false;
-  res.json(true);
-}));
+    req.session.username = null;
+    req.session.signedIn = false;
+    res.json(true);
+  }),
+);
 
-app.get('/providers', 
+app.get(
+  '/providers',
   catchError(async (req, res) => {
-  const providers = await res.locals.store.getPartialProviders();
-  res.json(providers);
+    const providers = await res.locals.store.getPartialProviders();
+    res.json(providers);
   // res.json(await res.locals.store.getPartialProviders());
-}));
+  }),
+);
