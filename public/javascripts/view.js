@@ -54,6 +54,7 @@ class View {
       this.signOutDiv.classList.add('hidden');
       this.signInDiv.classList.remove('hidden');
       this.userGreeting = document.querySelector('#user-greeting');
+
       this.userGreeting.textContent = `Hello ${name}`;
       this.enableLogout();
     } else if (!this.signedIn) {
@@ -361,7 +362,6 @@ class View {
   // will then pass list of providers to buildProvidersTemplate function.
 
   buildProvidersTemplate(providers) {
-    console.log(providers);
     const providerList = Handlebars.compile(document.querySelector('#provider-list-template').innerHTML);
     const partialTemplate = document.querySelector('#partialTemplate').innerHTML;
     const partialCompiled = Handlebars.compile(partialTemplate);
@@ -413,7 +413,7 @@ class View {
         this.hideAll();
       } else {
         this.contactingProvider = true;
-        this.triggerEvent(this.signinButton, 'click');
+        this.signinButton.click();
       }
     });
   }

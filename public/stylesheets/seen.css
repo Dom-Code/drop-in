@@ -78,7 +78,7 @@ nav {
   display: flex;
   justify-content: space-between;
   padding-top: 2%;  
-  border-bottom: 1px dashed #9BA4C9;
+  /* border-bottom: 1px dashed #9BA4C9; */
 }
 
 #other-buttons {
@@ -414,7 +414,7 @@ li {
   border-radius: 7px;
   position: absolute;
   width: 70%;
-  height: 50%;
+  height: auto;
   top: 20%;
   overflow: hidden;
   padding: 20px;

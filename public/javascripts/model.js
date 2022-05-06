@@ -32,7 +32,6 @@ class Model {
         if (request.status >= 200 && request.status < 400) {
           if (!(request.response === 'false')) {
             const data = JSON.parse(request.response);
-            console.log(data);
             resolve(data);
           } else {
             reject(new Error('invalid'));

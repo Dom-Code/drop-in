@@ -14,7 +14,7 @@ class Controller {
       const providersData = signinRequest[1];
       this.view.signedIn = true;
       this.view.closeSignIn();
-      this.view.checkSignedIn(signinRequest[0].first_name);
+      this.view.checkSignedIn(signinRequest[0][0].first_name);
       this.getProviders(providersData);
       this.view.providers = providersData;
     } else {
